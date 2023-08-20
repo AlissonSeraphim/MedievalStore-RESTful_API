@@ -1,6 +1,6 @@
-export type Product = {
-  id: number;
+export interface ProductCreateDto {
+  id?: number;
   name: string;
   price: string;
   orderId: number;
-};
+}
