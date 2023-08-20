@@ -13,12 +13,15 @@ const createProduct = async ({
   return { status: 'CREATED', data: newProduct.dataValues };
 };
 
-// export const getProducts = async (): Promise<ProductCreateDto[]> => {
-//   const allProducts = await ProductModel.findAll();
+export const getProducts = async (): Promise<ServiceResponseCreated<Product[]>> => {
+  const allProducts = await ProductModel.findAll();
 
-//   return allProducts;
-// };
+  const products = allProducts.map((product) => product.dataValues);
+
+  return { status: 'OK', data: products };
+};
 
 export default {
   createProduct,
+  getProducts,
 };

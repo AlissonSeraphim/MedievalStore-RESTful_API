@@ -6,7 +6,7 @@ import { Request, Response } from 'express';
 chai.use(sinonChai);
 
 import productController from '../../../src/controllers/productsController'
-import { productRegistered, productToRegister, responseService } from '../../mocks/produtsMock';
+import { getProducts, productRegistered, productToRegister, responseService } from '../../mocks/produtsMock';
 import productsService from '../../../src/services/productsService';
 
 describe('ProductsController', function () {
@@ -29,6 +29,17 @@ describe('ProductsController', function () {
     await productController.createProduct(req, res);
     // Assert
     expect(res.status).to.have.been.calledWith(201);
+  })
+
+  it ('Retorna os produtos com sucesso', async function () {
+    // Arrange
+    sinon.stub(productsService, 'getProducts').resolves({
+      status: 'OK', data: getProducts
+    });
+    // Act
+    await productController.getProducts(req, res);
+    // Assert
+    expect(res.status).to.have.been.calledWith(200);
   })
 
 });

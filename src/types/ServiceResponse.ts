@@ -1,4 +1,4 @@
 export type ServiceResponseCreated<T> = {
-  status: 'CREATED',
-  data: T
+  status: 'CREATED' | 'OK',
+  data: T,
 };

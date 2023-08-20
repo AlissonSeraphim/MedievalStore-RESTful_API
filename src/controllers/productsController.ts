@@ -11,6 +11,13 @@ export const createProduct = async (req: Request, res: Response): Promise<Respon
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+export const getProducts = async (_req: Request, res: Response): Promise<Response> => {
+  const { status, data } = await services.productsService.getProducts();
+
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
 export default {
   createProduct,
+  getProducts,
 };
