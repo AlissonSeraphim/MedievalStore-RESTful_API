@@ -1,10 +1,14 @@
-import { DataTypes, Model, ModelDefined, Optional } from 'sequelize';
+import { DataTypes, ModelDefined } from 'sequelize';
 import db from './index';
 import { Product } from '../../types/Product';
+import OrderModel from './order.model';
+import UserModel from './user.model';
 
-export type ProductInputtableTypes = Optional<Product, 'id'>;
-type ProductSequelizeModelCreator = ModelDefined<Product, ProductInputtableTypes>;
-export type ProductSequelizeModel = Model<Product, ProductInputtableTypes>;
+import { ProductInputtableFields } from '../types/ProductInputabbleFields';
+import { ProductSequelizeModel } from '../types/ProductSequelizeModel';
+
+type ProductSequelizeModelCreator = ModelDefined<Product, ProductInputtableFields>;
+export { ProductSequelizeModel };
 
 const ProductModel: ProductSequelizeModelCreator = db.define('Product', {
   id: {
@@ -29,5 +33,8 @@ const ProductModel: ProductSequelizeModelCreator = db.define('Product', {
   timestamps: false,
   underscored: true,
 });
+
+OrderModel.belongsTo(UserModel, { foreignKey: 'userId' });
+OrderModel.hasMany(ProductModel, { foreignKey: 'orderId', as: 'products' });
 
 export default ProductModel;

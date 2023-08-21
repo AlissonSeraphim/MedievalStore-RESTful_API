@@ -1,7 +1,7 @@
 import { CreateSession } from '../types/CreateSession';
 import Schemas from '../validations/schema';
 import { ValidationError } from '../types/ValidationError';
-import { ProductInputtableTypes } from '../database/models/product.model';
+import { ProductInputtableFields } from '../database/types/ProductInputabbleFields';
 
 const validationCreateSession = (loginData: CreateSession)
 : ValidationError | undefined => {
@@ -10,7 +10,7 @@ const validationCreateSession = (loginData: CreateSession)
   return error ? { message: error.message, statusHttp: 'INVALID_DATA' } : undefined;
 };
 
-const validationCreateProduct = (productData: ProductInputtableTypes)
+const validationCreateProduct = (productData: ProductInputtableFields)
 : ValidationError | undefined => {
   const { error } = Schemas.createProductSchema.validate(productData);
 

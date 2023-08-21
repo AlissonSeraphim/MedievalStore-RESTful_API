@@ -1,8 +1,7 @@
 import { DataTypes, Model, ModelDefined, Optional } from 'sequelize';
 import db from './index';
 import { Order } from '../../types/Order';
-import ProductModel, { ProductSequelizeModel } from './product.model';
-import UserModel from './user.model';
+import { ProductSequelizeModel } from '../types/ProductSequelizeModel';
 
 type OrderWithProductRelation = Order & { products?: ProductSequelizeModel[] };
 type OrderInputtableTypes = Optional<OrderWithProductRelation, 'id'>;
@@ -25,14 +24,14 @@ const OrderModel: OrderSequelizeModelCreator = db.define('Order', {
   underscored: true,
 });
 
-OrderModel.belongsTo(UserModel, { foreignKey: 'userId' });
-OrderModel.hasMany(ProductModel, { foreignKey: 'orderId', as: 'products' });
+// OrderModel.belongsTo(UserModel, { foreignKey: 'userId' });
+// OrderModel.hasMany(ProductModel, { foreignKey: 'orderId', as: 'products' });
 
-const loadRelations = (): void => {
-  OrderModel.belongsTo(UserModel, { foreignKey: 'userId' });
-  OrderModel.hasMany(ProductModel, { foreignKey: 'orderId', as: 'products' });
-};
+// const loadRelations = (): void => {
+//   OrderModel.belongsTo(UserModel, { foreignKey: 'userId' });
+//   OrderModel.hasMany(ProductModel, { foreignKey: 'orderId', as: 'products' });
+// };
 
-if (process.env.NODE_ENV !== 'test') loadRelations();
+// if (process.env.NODE_ENV !== 'test') loadRelations();
 
 export default OrderModel;
