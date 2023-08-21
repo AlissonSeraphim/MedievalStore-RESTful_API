@@ -4,6 +4,7 @@ import sinon from 'sinon';
 import { Request, Response } from 'express';
 
 import orderService from '../../../src/services/ordersService';
+import orderController from '../../../src/controllers/ordersController'
 import OrderMock from '../../mocks/Order.mock';
 import { getProducts } from '../../mocks/produtsMock';
 import { Order } from "../../../src/types/Order"
@@ -11,7 +12,14 @@ import { Order } from "../../../src/types/Order"
 chai.use(sinonChai);
 
 describe('OrdersController', function () {
+  const req = {} as Request;
+  const res = {} as Response;
+
+  beforeEach(function () {
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns(res);
     sinon.restore();
+  });
 
   it("should be able to list all orders with product relation", async function () {
     const fakeProducts = getProducts
@@ -26,9 +34,9 @@ describe('OrdersController', function () {
       data: fakeOrdersWithProducts
     })
 
-    const {data, status} = await orderService.getOrders()
+    await orderController.getOrders(req, res);
 
-    expect(status).to.be.equal("OK")
-    expect(data[0]).to.haveOwnProperty("productIds")
+    expect(res.status).to.have.been.calledWith(200);
+
   })
 });

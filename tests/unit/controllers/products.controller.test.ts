@@ -6,7 +6,7 @@ import { Request, Response } from 'express';
 chai.use(sinonChai);
 
 import productController from '../../../src/controllers/productsController'
-import { getProducts, productRegistered, productToRegister, responseService } from '../../mocks/produtsMock';
+import { getProducts, wrongProductToRegister, productRegistered, productToRegister, responseService } from '../../mocks/produtsMock';
 import productsService from '../../../src/services/productsService';
 
 describe('ProductsController', function () {

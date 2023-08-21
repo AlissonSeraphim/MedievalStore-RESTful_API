@@ -4,6 +4,13 @@ export const productToRegister = {
   "orderId": 4
 }
 
+export const wrongProductToRegister = {
+  "id": 1,
+  "name": 1,
+  "price": "30 peças de ouro",
+  "orderId": 4
+}
+
 export const productRegistered = {
   "id": 6, 
   "name": "Martelo de Thor",
