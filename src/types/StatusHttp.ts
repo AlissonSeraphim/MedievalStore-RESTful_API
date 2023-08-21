@@ -1,4 +1,4 @@
-export type StatusHttpSuccess = 'CREATED' | 'SUCCESSFUL';
+export type StatusHttpSuccess = 'CREATED' | 'OK';
 
 export type StatusHttpError = 'INVALID_DATA' | 'UNAUTHORIZED' | 'UNPROCESSABLE_ENTITY';
 

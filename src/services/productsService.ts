@@ -2,19 +2,19 @@ import ProductModel from '../database/models/product.model';
 import { ProductInputtableFields } from '../database/types/ProductInputabbleFields';
 // import { ProductCreateDto } from '../dto/products.dto';
 import { Product } from '../types/Product';
-import { ServiceResponseCreated } from '../types/ServiceResponse';
+import ServiceResponse from '../types/ServiceResponse';
 
 const createProduct = async ({ 
   name, 
   price, 
   orderId,
-}: ProductInputtableFields): Promise<ServiceResponseCreated<Product>> => {
+}: ProductInputtableFields): Promise<ServiceResponse<Product>> => {
   const newProduct = await ProductModel.create({ name, price, orderId });
 
   return { status: 'CREATED', data: newProduct.dataValues };
 };
 
-export const getProducts = async (): Promise<ServiceResponseCreated<Product[]>> => {
+export const getProducts = async (): Promise<ServiceResponse<Product[]>> => {
   const allProducts = await ProductModel.findAll();
 
   const products = allProducts.map((product) => product.dataValues);

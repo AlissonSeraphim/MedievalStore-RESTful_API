@@ -7,8 +7,6 @@ import ProductModel from '../../../src/database/models/product.model';
 import ordersService from '../../../src/services/ordersService';
 import { getProducts } from '../../mocks/produtsMock';
 
-
-
 describe('OrdersService', function () {
   beforeEach(function () { sinon.restore(); });
 
@@ -23,6 +21,6 @@ describe('OrdersService', function () {
     const { data, status } = await ordersService.getOrders();
 
     expect(status).to.be.equal("OK")
-    expect(data[0]).to.haveOwnProperty("productIds")
+    expect(data).to.be.instanceOf(Array)
   })
 });

@@ -29,6 +29,7 @@ describe('ProductsController', function () {
     await productController.createProduct(req, res);
     // Assert
     expect(res.status).to.have.been.calledWith(201);
+    expect(res.json).to.have.been.calledWith(productRegistered);
   })
 
   it ('Retorna os produtos com sucesso', async function () {
@@ -40,6 +41,7 @@ describe('ProductsController', function () {
     await productController.getProducts(req, res);
     // Assert
     expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith(getProducts);
   })
 
 });

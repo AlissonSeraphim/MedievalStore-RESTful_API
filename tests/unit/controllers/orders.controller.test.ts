@@ -21,7 +21,7 @@ describe('OrdersController', function () {
     sinon.restore();
   });
 
-  it("should be able to list all orders with product relation", async function () {
+  it("Lista todas as orders", async function () {
     const fakeProducts = getProducts
     const fakeOrders = OrderMock.fakeOrders as Order[];
 
@@ -37,6 +37,6 @@ describe('OrdersController', function () {
     await orderController.getOrders(req, res);
 
     expect(res.status).to.have.been.calledWith(200);
-
+    expect(res.json).to.have.been.calledWith(fakeOrdersWithProducts)
   })
 });

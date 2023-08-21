@@ -1,9 +1,9 @@
 import OrderModel from '../database/models/order.model';
 import ProductModel from '../database/models/product.model';
 import { Order } from '../types/Order';
-import { ServiceResponseCreated } from '../types/ServiceResponse';
+import ServiceResponse from '../types/ServiceResponse';
 
-const getOrders = async (): Promise<ServiceResponseCreated<Order[]>> => {
+const getOrders = async (): Promise<ServiceResponse<Order[]>> => {
   const ordersSequelize = await OrderModel.findAll({
     include: { model: ProductModel, as: 'products' },
   });
