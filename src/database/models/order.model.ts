@@ -25,6 +25,9 @@ const OrderModel: OrderSequelizeModelCreator = db.define('Order', {
   underscored: true,
 });
 
+OrderModel.belongsTo(UserModel, { foreignKey: 'userId' });
+OrderModel.hasMany(ProductModel, { foreignKey: 'orderId', as: 'products' });
+
 const loadRelations = (): void => {
   OrderModel.belongsTo(UserModel, { foreignKey: 'userId' });
   OrderModel.hasMany(ProductModel, { foreignKey: 'orderId', as: 'products' });
