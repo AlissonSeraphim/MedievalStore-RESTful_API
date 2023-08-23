@@ -1,11 +1,15 @@
 import * as express from 'express';
-import productsController from '../controllers/index';
-import ensureProductValidation from '../middlewares/productValidation';
+import { createProduct, getProducts } from '../controllers/productsController';
+import ensureCreateProductValidation from '../middlewares/ensureCreateProductValidation.middleware';
 
 const routes = express.Router();
 
-routes.post('/', ensureProductValidation, productsController.productsController.createProduct);
+routes.post(
+  '/', 
+  ensureCreateProductValidation, 
+  createProduct,
+);
 
-routes.get('/', productsController.productsController.getProducts);
+routes.get('/', getProducts);
 
 export default routes;

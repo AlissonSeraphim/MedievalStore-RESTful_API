@@ -1,12 +1,10 @@
-import { DataTypes, Model, ModelDefined, Optional } from 'sequelize';
+import { DataTypes, ModelDefined } from 'sequelize';
 import db from './index';
-import { Order } from '../../types/Order';
-import { ProductSequelizeModel } from '../types/ProductSequelizeModel';
+import { OrderCreateFields } from '../../types/Order';
+import { OrderSequelizeModel, OrderWithRelations } from '../types/OrderSequelize';
 
-type OrderWithProductRelation = Order & { products?: ProductSequelizeModel[] };
-type OrderInputtableTypes = Optional<OrderWithProductRelation, 'id'>;
-type OrderSequelizeModelCreator = ModelDefined<OrderWithProductRelation, OrderInputtableTypes>;
-export type OrderSequelizeModel = Model<OrderWithProductRelation, OrderInputtableTypes>;
+type OrderSequelizeModelCreator = ModelDefined<OrderWithRelations, OrderCreateFields>;
+export { OrderSequelizeModel };
 
 const OrderModel: OrderSequelizeModelCreator = db.define('Order', {
   id: {

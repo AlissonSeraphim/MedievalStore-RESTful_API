@@ -32,4 +32,18 @@ describe('LoginService', function () {
     expect(status).to.be.equal("UNAUTHORIZED");
     expect(data).to.haveOwnProperty("message")
   })
+
+  it("Falha em criar sessão com usuario inexistente", async function () {
+    sinon.stub(UserModel, "findOne").resolves(undefined);
+
+    const NON_EXISTENT_USERNAME = "WRONG_USERNAME"
+
+    const { status, data } = await LoginService.createSession({
+      username: NON_EXISTENT_USERNAME,
+      password: "incorrect_password"
+    })
+
+    expect(status).to.be.equal("UNAUTHORIZED");
+    expect(data).to.haveOwnProperty("message")
+  })
 });

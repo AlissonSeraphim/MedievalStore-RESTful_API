@@ -1,14 +1,12 @@
 import ProductModel from '../database/models/product.model';
-import { ProductInputtableFields } from '../database/types/ProductInputabbleFields';
-// import { ProductCreateDto } from '../dto/products.dto';
-import { Product } from '../types/Product';
+import { Product, ProductCreateFields } from '../types/Product';
 import ServiceResponse from '../types/ServiceResponse';
 
 const createProduct = async ({ 
   name, 
   price, 
   orderId,
-}: ProductInputtableFields): Promise<ServiceResponse<Product>> => {
+}: ProductCreateFields): Promise<ServiceResponse<Product>> => {
   const newProduct = await ProductModel.create({ name, price, orderId });
 
   return { status: 'CREATED', data: newProduct.dataValues };

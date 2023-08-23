@@ -9,7 +9,7 @@ const fakeUser = {
   username: "username",
   vocation: "vocation",
   level: 1,
-  password: bcrypt.hashSync(FAKE_PASSWORD, bcryptConfig.alg)
+  password: bcrypt.hashSync(FAKE_PASSWORD, bcryptConfig.salt)
 }
 
 export default {

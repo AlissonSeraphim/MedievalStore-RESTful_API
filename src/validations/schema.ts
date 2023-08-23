@@ -15,7 +15,16 @@ const createProductSchema = Joi.object({
   orderId: Joi.number(),
 });
 
+const createOrderSchema = Joi.object({
+  userId: Joi.number().integer().required(),
+  productIds: Joi.array().items(Joi.number().required()).required().messages({
+    'number.base': '"productIds" must be includes only numbers',
+    'array.includesRequiredUnknowns': '"productIds" must include only numbers',
+  }),
+});
+
 export default {
   createSessionSchema,
   createProductSchema,
+  createOrderSchema,
 };

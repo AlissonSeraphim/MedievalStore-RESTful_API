@@ -1,13 +1,12 @@
 import { DataTypes, ModelDefined } from 'sequelize';
 import db from './index';
-import { Product } from '../../types/Product';
+import { Product, ProductCreateFields } from '../../types/Product';
 import OrderModel from './order.model';
 import UserModel from './user.model';
 
-import { ProductInputtableFields } from '../types/ProductInputabbleFields';
 import { ProductSequelizeModel } from '../types/ProductSequelizeModel';
 
-type ProductSequelizeModelCreator = ModelDefined<Product, ProductInputtableFields>;
+type ProductSequelizeModelCreator = ModelDefined<Product, ProductCreateFields>;
 export { ProductSequelizeModel };
 
 const ProductModel: ProductSequelizeModelCreator = db.define('Product', {

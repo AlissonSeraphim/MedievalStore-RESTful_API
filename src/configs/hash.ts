@@ -1,5 +1,5 @@
 const bcryptConfig = {
-  alg: 10,
+  salt: 10,
 };
 
 export default bcryptConfig;

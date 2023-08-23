@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import LoginController from '../controllers/loginController';
-import ensureLoginValidation from '../middlewares/loginValidation';
+import ensureCreateLoginValidation from '../middlewares/ensureCreateLoginValidation';
 
 const loginRouter = Router();
 
-loginRouter.post('/', ensureLoginValidation, LoginController.createSession);
+loginRouter.post('/', ensureCreateLoginValidation, LoginController.createSession);
 
 export default loginRouter;

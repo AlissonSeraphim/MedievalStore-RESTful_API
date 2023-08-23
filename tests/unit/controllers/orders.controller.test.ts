@@ -3,11 +3,12 @@ import chai, { expect } from 'chai';
 import sinon from 'sinon';
 import { Request, Response } from 'express';
 
-import orderService from '../../../src/services/ordersService';
-import orderController from '../../../src/controllers/ordersController'
+
 import OrderMock from '../../mocks/Order.mock';
 import { getProducts } from '../../mocks/produtsMock';
-import { Order } from "../../../src/types/Order"
+import { OrderWithProductIds } from "../../../src/types/Order"
+import ordersService from '../../../src/services/ordersService';
+import ordersController from '../../../src/controllers/ordersController';
 
 chai.use(sinonChai);
 
@@ -21,22 +22,46 @@ describe('OrdersController', function () {
     sinon.restore();
   });
 
+  it("Cria uma order com sucesso", async function () {
+    const { fakeOrderWithProductIds } = OrderMock;
+
+    req.body = {
+      userId: fakeOrderWithProductIds.userId,
+      productIds: fakeOrderWithProductIds.productIds
+    }
+
+    sinon.stub(ordersService, "createOrder").resolves({
+      data: fakeOrderWithProductIds,
+      status: "CREATED"
+    })
+
+    const { data, status } = await ordersService.createOrder({
+      userId: fakeOrderWithProductIds.userId,
+      productIds: fakeOrderWithProductIds.productIds
+    })
+
+    await ordersController.createOrder(req,res);
+
+    expect(status).to.be.equal("CREATED")
+    expect(data).to.be.deep.equal(fakeOrderWithProductIds)
+  })
+
   it("Lista todas as orders", async function () {
-    const fakeProducts = getProducts
-    const fakeOrders = OrderMock.fakeOrders as Order[];
+    const fakeProducts = getProducts;
+    const fakeOrders = OrderMock.fakeOrders as OrderWithProductIds[];
 
     fakeOrders[0].productIds = fakeProducts.map(fakeProduct => fakeProduct.id)
 
     const fakeOrdersWithProducts = fakeOrders
 
-    sinon.stub(orderService, "getOrders").resolves({
+    sinon.stub(ordersService, "getOrders").resolves({
       status: "OK",
       data: fakeOrdersWithProducts
     })
 
-    await orderController.getOrders(req, res);
+    await ordersController.getOrders(req,res)
 
-    expect(res.status).to.have.been.calledWith(200);
+    expect(res.status).to.have.been.calledWith(200)
     expect(res.json).to.have.been.calledWith(fakeOrdersWithProducts)
   })
 });
